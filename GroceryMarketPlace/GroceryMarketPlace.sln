@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{04AB2C7B-3321-4AF9-A080-46F1F699C0FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryMarketPlace.API", "src\GroceryMarketPlace.API\GroceryMarketPlace.API.csproj", "{93F45417-B6A8-4B4A-868A-AF12A63E9336}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryMarketPlace.DataAccess", "src\GroceryMarketPlace.DataAccess\GroceryMarketPlace.DataAccess.csproj", "{060278F9-FEAE-4556-AAA3-5029B729E7A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryMarketPlace.Domain", "src\GroceryMarketPlace.Domain\GroceryMarketPlace.Domain.csproj", "{BEE4CDEC-1911-4DDC-91AC-66668ED737DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryMarketPlace.Services", "src\GroceryMarketPlace.Services\GroceryMarketPlace.Services.csproj", "{E01EC506-2F83-49B9-AB74-905AAFC37EB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryMarketPlace.Web", "src\GroceryMarketPlace.Web\GroceryMarketPlace.Web.csproj", "{5223ED88-1535-412A-A1C0-D58B7C6CB4B7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93F45417-B6A8-4B4A-868A-AF12A63E9336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93F45417-B6A8-4B4A-868A-AF12A63E9336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93F45417-B6A8-4B4A-868A-AF12A63E9336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93F45417-B6A8-4B4A-868A-AF12A63E9336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{060278F9-FEAE-4556-AAA3-5029B729E7A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{060278F9-FEAE-4556-AAA3-5029B729E7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{060278F9-FEAE-4556-AAA3-5029B729E7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{060278F9-FEAE-4556-AAA3-5029B729E7A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEE4CDEC-1911-4DDC-91AC-66668ED737DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEE4CDEC-1911-4DDC-91AC-66668ED737DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEE4CDEC-1911-4DDC-91AC-66668ED737DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEE4CDEC-1911-4DDC-91AC-66668ED737DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E01EC506-2F83-49B9-AB74-905AAFC37EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E01EC506-2F83-49B9-AB74-905AAFC37EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E01EC506-2F83-49B9-AB74-905AAFC37EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E01EC506-2F83-49B9-AB74-905AAFC37EB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5223ED88-1535-412A-A1C0-D58B7C6CB4B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5223ED88-1535-412A-A1C0-D58B7C6CB4B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5223ED88-1535-412A-A1C0-D58B7C6CB4B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5223ED88-1535-412A-A1C0-D58B7C6CB4B7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{93F45417-B6A8-4B4A-868A-AF12A63E9336} = {04AB2C7B-3321-4AF9-A080-46F1F699C0FE}
+		{060278F9-FEAE-4556-AAA3-5029B729E7A0} = {04AB2C7B-3321-4AF9-A080-46F1F699C0FE}
+		{BEE4CDEC-1911-4DDC-91AC-66668ED737DF} = {04AB2C7B-3321-4AF9-A080-46F1F699C0FE}
+		{E01EC506-2F83-49B9-AB74-905AAFC37EB0} = {04AB2C7B-3321-4AF9-A080-46F1F699C0FE}
+		{5223ED88-1535-412A-A1C0-D58B7C6CB4B7} = {04AB2C7B-3321-4AF9-A080-46F1F699C0FE}
+	EndGlobalSection
+EndGlobal
