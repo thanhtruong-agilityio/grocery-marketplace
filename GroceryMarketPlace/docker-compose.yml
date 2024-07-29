@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  grocery_marketplace_mssql:
+    container_name: sql-server
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Admin@123"
+    ports:
+      - 1433:1433
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+  api:
+    image: web-api
+    build:
+      context: .
+      dockerfile: src/GroceryMarketplace.API/Dockerfile
+    ports:
+      - 8080:80
+    depends_on:
+      - grocery_marketplace_mssql
+      - redis
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - ConnectionStrings:DBConnection=Server=grocery_marketplace_mssql;Database=GroceryMarketplaceDB;User Id=SA;Password=Admin@123;
