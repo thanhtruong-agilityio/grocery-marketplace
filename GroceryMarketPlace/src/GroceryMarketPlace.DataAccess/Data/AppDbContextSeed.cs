@@ -2,9 +2,23 @@ namespace GroceryMarketPlace.DataAccess.Data
 {
     using Domain.Entities;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
 
     public static class AppDbContextSeed
     {
+        public static void CreateDbIfNotExists(this IHost host)
+        {
+            using var scope = host.Services.CreateScope();
+
+            var services = scope.ServiceProvider;
+            var pickleContext = services.GetRequiredService<AppDbContext>();
+
+            pickleContext.Database.EnsureCreated();
+
+            _ = RunMigrationAsync(pickleContext);
+        }
+
         public static async Task RunMigrationAsync(AppDbContext dbContext)
         {
             if (dbContext.Products.Any())

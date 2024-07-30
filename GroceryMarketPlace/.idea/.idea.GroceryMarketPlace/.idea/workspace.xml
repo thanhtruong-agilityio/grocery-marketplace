@@ -11,11 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd6cd013-4076-4e54-b098-75c93bd36684" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/GroceryMarketPlace.API/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GroceryMarketPlace.API/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GroceryMarketPlace.Web/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GroceryMarketPlace.Web/.idea/.idea.GroceryMarketPlace.Web/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GroceryMarketPlace.Web/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GroceryMarket/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GroceryMarket/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroceryMarketPlace.Web/GroceryMarketPlace.Web.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroceryMarketPlace.Web/GroceryMarketPlace.Web.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroceryMarketPlace.Web/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroceryMarketPlace.Web/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroceryMarketPlace.Web/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroceryMarketPlace.Web/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,6 +188,7 @@
       <workItem from="1722259956552" duration="6218000" />
       <workItem from="1722266263740" duration="343000" />
       <workItem from="1722266637388" duration="5072000" />
+      <workItem from="1722273868493" duration="2724000" />
     </task>
     <servers />
   </component>
