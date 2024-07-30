@@ -1,4 +1,5 @@
-﻿
+﻿@using GroceryMarketPlace.Domain.Entities
+
 @inject ProductService productService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
@@ -27,7 +28,7 @@ else
 
 @code {
     private IQueryable<Product>? Products { get; set; }
-    private Product? SelectedProduct { get; set; } = null;    
+    private Product? SelectedProduct { get; set; } = null;
 
     protected override async Task OnInitializedAsync()
     {
@@ -35,12 +36,12 @@ else
 
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
-        
-        
+
+
     }
 
     void LeaveReview(Product product)
-    {        
-        SelectedProduct = product;     
+    {
+        SelectedProduct = product;
     }
 }

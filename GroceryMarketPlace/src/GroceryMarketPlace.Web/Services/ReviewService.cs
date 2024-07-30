@@ -1,55 +1,52 @@
 ﻿namespace GroceryMarketPlace.Web.Services;
 
-using System.Net.Http.Json;
-using GroceryMarketPlace.Domain.Entities;
-using Microsoft.Identity.Web;
+using DataAccess.Data;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public class ReviewService
 {
-	private readonly HttpClient _reviewClient;
-	private readonly ITokenAcquisition _tokenAcquisition;
-	private readonly IConfiguration _configuration;
+    private readonly AppDbContext pickleContext;
 
-    public ReviewService(HttpClient client, ITokenAcquisition token, IConfiguration configure)
-	{
-		this._reviewClient = client;
-		this._tokenAcquisition = token;
-		this._configuration = configure;
-	}
-
-	public async Task AddReview(string reviewText, List<string> photoUrls, int productId)
-	{
-		try
-		{
-			// NewReview newReview = new NewReview
-			// {
-			// 	PhotoUrls = photoUrls,
-			// 	ProductId = productId,
-			// 	ReviewText = reviewText
-			// };
-   //
-   //          var scopes = this.configuration["ReviewApi:Scopes"]?.Split(' ')!;
-   //
-   //          string accessToken = await this.tokenAcquisition.GetAccessTokenForUserAsync(scopes);
-   //
-			// this.reviewClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-   //
-			// await this.reviewClient.PostAsJsonAsync<NewReview>("/reviews", newReview);
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex);
-		}
+    public ReviewService(AppDbContext context)
+    {
+        this.pickleContext = context;
     }
 
-	public async Task<IEnumerable<Review>> GetReviewsForProduct(int productId)
-	{
-		return await this._reviewClient.GetFromJsonAsync<IEnumerable<Review>>($"/products/{productId}/reviews");
-	}
+    public async Task AddReview(string reviewText, string productId)
+    {
+        string userId = "matt"; // this will get changed out when we add auth
 
-	public async Task<Review>? GetReviewById(int reviewId)
-	{
-		return await this._reviewClient.GetFromJsonAsync<Review>($"/reviews/{reviewId}");
-	}
+        try
+        {
+            // create the new review
+            Review review = new()
+            {
+                Date = DateTime.Now,
+                Text = reviewText,
+                UserId = userId
+            };
 
+            Product product = await this.pickleContext.Products.FindAsync(productId);
+
+            if (product is null)
+                return;
+
+            if (product.Reviews is null)
+                product.Reviews = new List<Review>();
+
+            product.Reviews.Add(review);
+
+            await this.pickleContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex);
+        }
+    }
+
+    public async Task<IEnumerable<Review>> GetReviewsForProduct(string productId)
+    {
+        return await this.pickleContext.Reviews.AsNoTracking().Where(r => r.Product.Id == productId).ToListAsync();
+    }
 }

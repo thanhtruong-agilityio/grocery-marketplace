@@ -1,4 +1,5 @@
 ﻿@page "/productdetails/{productId:int}"
+@using GroceryMarketPlace.Domain.Entities
 
 @inject ProductService productService
 
@@ -16,7 +17,7 @@ else
                 <p class="lead">@product?.Description</p>
             </div>
             <div class="column">
-                <img class="rounded-3" style="height:200px;" src="@product?.PhotoUrl"/>
+                <img class="rounded-3" style="height:200px;" src="@product?.Description"/>
             </div>
         </div>
         <div class="row mt-lg-4 bg-light">
@@ -27,7 +28,7 @@ else
         <div class="row mt-lg-4">
             <div class="column">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#reviewModal">Add Review</button>
-            </div>            
+            </div>
         </div>
     </div>
 
@@ -37,12 +38,12 @@ else
 
 @code {
     [Parameter]
-    public int ProductId { get; set; }
+    public string ProductId { get; set; }
 
     Product? product;
 
     protected override async Task OnInitializedAsync()
     {
         product = await productService.GetProductById(ProductId);
-    }    
+    }
 }

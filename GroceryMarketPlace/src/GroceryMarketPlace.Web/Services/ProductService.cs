@@ -1,11 +1,29 @@
 ﻿namespace GroceryMarketPlace.Web.Services;
 
-using System.Net.Http.Json;
+using DataAccess.Data;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
-public class ProductService(HttpClient httpClient)
+public class ProductService
 {
-    public async Task<IEnumerable<Product>?> GetAllProducts() => await httpClient.GetFromJsonAsync<IEnumerable<Product>>("/products");
+    private readonly AppDbContext productContext;
 
-    public async Task<Product?>? GetProductById(int productId) => await httpClient.GetFromJsonAsync<Product>($"/products/{productId}");
+    public ProductService(AppDbContext context)
+    {
+        this.productContext = context;
+    }
+
+    public async Task<IEnumerable<Product>> GetAllProducts()
+    {
+        return await this.productContext
+            .Products
+            .Include(p => p.ProductType)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<Product> GetProductById(string productId)
+    {
+        return await this.productContext.Products.Where(p => p.Id == productId).AsNoTracking().FirstOrDefaultAsync();
+    }
 }
