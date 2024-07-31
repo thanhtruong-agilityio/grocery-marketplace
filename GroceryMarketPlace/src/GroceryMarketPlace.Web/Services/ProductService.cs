@@ -1,29 +1,36 @@
 ﻿namespace GroceryMarketPlace.Web.Services;
 
-using DataAccess.Data;
+using System.Net.Http.Headers;
 using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
 
 public class ProductService
 {
-    private readonly AppDbContext productContext;
+    private readonly HttpClient productHttp;
+    private readonly IConfiguration configuration;
+    private readonly ITokenAcquisition tokenAcquisition;
 
-    public ProductService(AppDbContext context)
+    public ProductService(HttpClient httpClient, ITokenAcquisition token, IConfiguration configure)
     {
-        this.productContext = context;
+        this.productHttp = httpClient;
+        this.configuration = configure;
+        this.tokenAcquisition = token;
     }
 
     public async Task<IEnumerable<Product>> GetAllProducts()
     {
-        return await this.productContext
-            .Products
-            .Include(p => p.ProductType)
-            .AsNoTracking()
-            .ToListAsync();
+        var scopes = configuration["ReviewApi:Scopes"]?.Split(' ')!;
+
+        string accessToken = await tokenAcquisition.GetAccessTokenForUserAsync(scopes);
+
+        this.productHttp.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+
+        return await this.productHttp.GetFromJsonAsync<IEnumerable<Product>>("/products");
     }
 
-    public async Task<Product> GetProductById(string productId)
+    public async Task<Product>? GetProductById(string productId)
     {
-        return await this.productContext.Products.Where(p => p.Id == productId).AsNoTracking().FirstOrDefaultAsync();
+        return await this.productHttp.GetFromJsonAsync<Product>($"/products/{productId}");
     }
 }

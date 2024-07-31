@@ -1,6 +1,8 @@
 ﻿@using Microsoft.Identity.Web
 @using Microsoft.Extensions.Options
 
+@inject IOptionsMonitor<MicrosoftIdentityOptions> microsoftIdentityOptions
+
 <AuthorizeView>
     <Authorized>
         Hello, @context.User.Identity?.Name!

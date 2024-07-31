@@ -1,7 +1,6 @@
 using GroceryMarketPlace.DataAccess.Data;
 using GroceryMarketPlace.Web.Services;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Azure;
 using Microsoft.Identity.Web;
@@ -9,36 +8,38 @@ using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages(options => options.RootDirectory = "/GroceryMarketPlace.Web/Pages");
-builder.Services.AddServerSideBlazor();
+builder.Services.AddHttpContextAccessor();
+
+var initialScopes = builder.Configuration["ReviewApi:Scopes"]?.Split(' ');
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAdB2C"));
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAdB2C"))
+    .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+    .AddInMemoryTokenCaches();
 
 builder.Services.AddControllersWithViews().AddMicrosoftIdentityUI();
 
 builder.Services.AddAuthorization(options =>
 {
-    options.FallbackPolicy = options.DefaultPolicy;
+    options.FallbackPolicy = options.DefaultPolicy;    
 });
 
+// Add services to the container.
+builder.Services.AddRazorPages(options => options.RootDirectory = "/GroceryMarketPlace.Web/Pages");
+builder.Services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
 
-var sqlConnection = builder.Configuration["ConnectionStrings:GroceryMarketPlace:SqlDb"];
+// var sqlConnection = builder.Configuration["ConnectionStrings:GroceryMarketPlace:SqlDb"];
 var storageConnection = builder.Configuration["ConnectionStrings:GroceryMarketPlace:Storage"];
 
 builder.Services.Configure<RazorPagesOptions>(options => options.RootDirectory = "/Pages");
-builder.Services.AddSqlServer<AppDbContext>(sqlConnection, options => options.EnableRetryOnFailure());
+// builder.Services.AddSqlServer<AppDbContext>(sqlConnection, options => options.EnableRetryOnFailure());
 builder.Services.AddAzureClients(azureBuilder =>
 {
     azureBuilder.AddBlobServiceClient(storageConnection);
 });
 
-builder.Services.AddTransient<ProductService>();
-builder.Services.AddTransient<ReviewService>();
-
-
-builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<ProductService>();
+builder.Services.AddSingleton<ReviewService>();
 
 builder.Services.AddHttpClient<ProductService>(client =>
 {

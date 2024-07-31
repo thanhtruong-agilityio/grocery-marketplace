@@ -12,6 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
+
+var initialScopes = builder.Configuration["AzureAdB2C:Scopes"]?.Split(' ');
+builder.Services.AddAuthorization();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var sqlConnection = builder.Configuration["ConnectionStrings:GroceryMarketPlace:SqlDb"];
 
 builder.Services.AddSqlServer<AppDbContext>(sqlConnection, options => options.EnableRetryOnFailure());
@@ -23,9 +30,18 @@ builder.Services.Configure<JsonOptions>(options =>
     options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
+
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 app.UseHttpsRedirection();
+
+app.UseAuthorization();
+var scopedRequiredByApi = app.Configuration["AzureAdB2C:Scopes"] ?? "";
 
 app.MapGet("/products", async (ProductReviewService productService) =>
     {

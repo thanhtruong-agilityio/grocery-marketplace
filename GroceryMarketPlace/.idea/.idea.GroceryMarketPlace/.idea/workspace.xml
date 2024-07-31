@@ -111,34 +111,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.GroceryMarketPlace.API: https.executor": "Run",
-    ".NET Launch Settings Profile.GroceryMarketPlace.Web.executor": "Run",
-    ".NET Launch Settings Profile.GroceryMarketPlace.Web: https.executor": "Run",
-    "Azure - Publish Web App.Publish GroceryMarketPlace.Web to Azure (1).executor": "Run",
-    "Azure - Publish Web App.Publish GroceryMarketPlace.Web to Azure (2).executor": "Run",
-    "Azure - Publish Web App.Publish GroceryMarketPlace.Web to Azure.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/azure-terraform-practice",
-    "last_opened_file_path": "/Users/thanhtruong/asnet-project/dotnet-training/dotnet-training/GroceryMarketPlace",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "terminal",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.GroceryMarketPlace.API: https.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Launch Settings Profile.GroceryMarketPlace.Web.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Launch Settings Profile.GroceryMarketPlace.Web: https.executor&quot;: &quot;Run&quot;,
+    &quot;Azure - Publish Web App.Publish GroceryMarketPlace.Web to Azure (1).executor&quot;: &quot;Run&quot;,
+    &quot;Azure - Publish Web App.Publish GroceryMarketPlace.Web to Azure (2).executor&quot;: &quot;Run&quot;,
+    &quot;Azure - Publish Web App.Publish GroceryMarketPlace.Web to Azure.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/azure-terraform-practice&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/thanhtruong/asnet-project/dotnet-training/dotnet-training/GroceryMarketPlace&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/Users/thanhtruong/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache",
-      "/Users/thanhtruong/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache",
-      "/Users/thanhtruong/Library/Application Support/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/thanhtruong/Library/Application Support/JetBrains/Rider2024.1/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/thanhtruong/Library/Application Support/JetBrains/Rider2024.1/resharper-host/SourcesCache&quot;,
+      &quot;/Users/thanhtruong/Library/Application Support/Symbols/src&quot;
     ]
   }
-}]]></component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.GroceryMarketPlace.API: https">
+}</component>
+  <component name="RunManager" selected=".NET Launch Settings Profile.GroceryMarketPlace.Web: https">
     <configuration name="Publish GroceryMarketPlace.Web to Azure (1)" type="AzureDotNetWebAppPublish" factoryName="Azure Web App">
       <option name="AZURE_WEB_APP_PROJECT" value="$PROJECT_DIR$/src/GroceryMarketPlace.Web/GroceryMarketPlace.Web.csproj" />
       <option name="AZURE_WEB_APP_CONFIGURATION" value="Release" />
@@ -154,7 +154,7 @@
       <option name="AZURE_WEB_APP_SERVICE_PLAN_ID" value="" />
       <option name="AZURE_WEB_APP_SERVICE_PLAN_NAME" value="" />
       <option name="AZURE_WEB_APP_LOCATION" value="southeastasia" />
-      <option name="AZURE_WEB_APP_PRICING_TIER" value="S1" />
+      <option name="AZURE_WEB_APP_PRICING_TIER" value="" />
       <option name="AZURE_WEB_APP_NET_FRAMEWORK" value="4.7" />
       <option name="AZURE_WEB_APP_NET_CORE_RUNTIME" value="DOTNETCORE 8.0" />
       <option name="AZURE_WEB_APP_IS_DEPLOY_TO_SLOT" value="0" />
@@ -191,7 +191,7 @@
       <option name="AZURE_WEB_APP_SERVICE_PLAN_ID" value="/subscriptions/cb4f011a-8d75-4ab9-8cfb-d9cc6a047ee0/resourceGroups/rg-azure-terraform-dev-001/providers/Microsoft.Web/serverfarms/appsp-240730135702" />
       <option name="AZURE_WEB_APP_SERVICE_PLAN_NAME" value="" />
       <option name="AZURE_WEB_APP_LOCATION" value="eastus" />
-      <option name="AZURE_WEB_APP_PRICING_TIER" value="S1" />
+      <option name="AZURE_WEB_APP_PRICING_TIER" value="" />
       <option name="AZURE_WEB_APP_NET_FRAMEWORK" value="4.7" />
       <option name="AZURE_WEB_APP_NET_CORE_RUNTIME" value="DOTNETCORE 2.1" />
       <option name="AZURE_WEB_APP_IS_DEPLOY_TO_SLOT" value="0" />
@@ -228,7 +228,7 @@
       <option name="AZURE_WEB_APP_SERVICE_PLAN_ID" value="" />
       <option name="AZURE_WEB_APP_SERVICE_PLAN_NAME" value="appsp-240730135442" />
       <option name="AZURE_WEB_APP_LOCATION" value="eastus" />
-      <option name="AZURE_WEB_APP_PRICING_TIER" value="S1" />
+      <option name="AZURE_WEB_APP_PRICING_TIER" value="" />
       <option name="AZURE_WEB_APP_NET_FRAMEWORK" value="4.7" />
       <option name="AZURE_WEB_APP_NET_CORE_RUNTIME" value="DOTNETCORE 8.0" />
       <option name="AZURE_WEB_APP_IS_DEPLOY_TO_SLOT" value="0" />
