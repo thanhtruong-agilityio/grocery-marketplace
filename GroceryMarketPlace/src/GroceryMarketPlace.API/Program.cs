@@ -1,76 +1,80 @@
 using System.Text.Json.Serialization;
-using GroceryMarketPlace.API;
-using GroceryMarketPlace.API.Filters;
-using GroceryMarketPlace.API.Middlewares;
-using GroceryMarketPlace.DataAccess;
+using GroceryMarketPlace.API.Controllers;
 using GroceryMarketPlace.DataAccess.Data;
-using GroceryMarketPlace.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
+using GroceryMarketPlace.Domain.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Json;
+using Microsoft.Identity.Web;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)))
-                .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAdB2C"));
 
-// Configure API versioning
-builder.Services.AddAPIVersioning();
 
-// Configure Swagger
+var initialScopes = builder.Configuration["AzureAdB2C:Scopes"]?.Split(' ');
+builder.Services.AddAuthorization();
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwagger();
+builder.Services.AddSwaggerGen();
 
-// Configure Fluent Validation
-builder.Services.AddRequestValidation();
+var sqlConnection = builder.Configuration["ConnectionStrings:GroceryMarketPlace:SqlDb"];
 
-// Configure Data access and Business services
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddSqlServer<AppDbContext>(sqlConnection, options => options.EnableRetryOnFailure());
+
+builder.Services.AddTransient<ProductReviewService>();
+
+builder.Services.Configure<JsonOptions>(options =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("DBConnection");
-
-    options.UseSqlServer(connectionString);
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
-builder.Services.AddDataAccess(builder.Configuration)
-    .AddBusinessServices(builder.Configuration);
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        var descriptions = app.DescribeApiVersions();
-
-        // Build a Swagger endpoint for each discovered API version
-        foreach (var description in descriptions)
-        {
-            var url = $"/swagger/{description.GroupName}/swagger.json";
-            var name = description.GroupName.ToUpperInvariant();
-            options.SwaggerEndpoint(url, name);
-        }
-    });
-
-    // Ensure DB exists
-    using var scope = app.Services.CreateScope();
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    dbContext.Database.EnsureCreated();
-
-    // Seed DB
-    AppDbContextSeed.RunMigrationAsync(dbContext).Wait();
+    app.UseSwaggerUI();
 }
-
-app.UseAuthentication();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
+var scopedRequiredByApi = app.Configuration["AzureAdB2C:Scopes"] ?? "";
 
-app.UseMiddleware<RequestResponseLoggingMiddleware>();
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.MapGet("/products", async (ProductReviewService productService) =>
+    {
+        return await productService.GetAllProducts();
+    })
+    .WithName("GetAllProducts")
+    .WithOpenApi()
+    .Produces<IEnumerable<Product>>(StatusCodes.Status200OK);
 
-app.MapControllers();
+app.MapGet("/products/{productId}", async (ProductReviewService productService, string productId) =>
+    {
+        return await productService.GetProductById(productId);
+    })
+    .WithName("GetProductById")
+    .WithOpenApi()
+    .Produces<Product>(StatusCodes.Status200OK);
+
+app.MapGet("/products/{productId}/reviews", async (ProductReviewService reviewService, string productId) =>
+    {
+        return await reviewService.GetReviewsForProduct(productId);
+    })
+    .WithName("GetReviewsForProduct")
+    .WithOpenApi()
+    .Produces<IEnumerable<Review>>(StatusCodes.Status200OK);
+
+app.MapGet("/reviews/{reviewId}", async(ProductReviewService reviewService, int reviewId) =>
+    {
+        return await reviewService.GetReviewById(reviewId);
+    })
+    .WithName("GetReviewById")
+    .WithOpenApi()
+    .Produces<Review>(StatusCodes.Status200OK);
+
+app.CreateDbIfNotExists();
 
 app.Run();
-
-public partial class Program { }
